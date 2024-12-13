@@ -14,8 +14,12 @@ export default function Home() {
 
     }
     function clienteExcluido(cliente: Cliente) {
+    }
+    function salvarCliente(cliente: Cliente){
 
     }
+
+    const [visivel, setVisivel] = useState <'tabela' | 'from'>('tabela')
 
     return (
         <div className={`
@@ -23,13 +27,23 @@ export default function Home() {
         h-screen
         `}>
             <Layout titulo="Cadastro Simples">
+                {visivel ==='tabela' ? (
+                <>
                 <div className="flex justify-end">
-                <Botao cor="green" className="mb-4">Novo Cliente</Botao>
+                <Botao cor="green" className="mb-4" onClick={()=> setVisivel('form')}>Novo Cliente</Botao>
                 </div>
               <Tabela clientes={clientes} clienteSelecionado={clienteSelecionado}
               clienteExcluido={clienteExcluido}
               />
-              <Formulario>cliente={clientes[0]}</Formulario>
+              </>
+
+                ):(
+                    
+                    <Formulario cliente={clientes[2]}
+                    cancelado={() => setVisivel('tabela')}
+                   clienteMudou={salvarCliente}
+                    />
+                )}
                 </Layout>    
 
         </div>
